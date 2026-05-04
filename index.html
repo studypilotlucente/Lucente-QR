@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lucente QR</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #411111, #050505 45%, #000);
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 22px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(18px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #ff2c2c;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 22px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    nav a:hover {
+      color: #ff3838;
+    }
+
+    .hero {
+      padding: 90px 8% 60px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(45px, 8vw, 92px);
+      line-height: 0.95;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #ff2c2c, #ff9b9b);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 19px;
+      color: #ddd;
+      max-width: 620px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      border: none;
+      padding: 15px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff1f1f, #a00000);
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(255,0,0,0.35);
+      transition: 0.25s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 0 45px rgba(255,0,0,0.6);
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 32px;
+      padding: 35px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+      backdrop-filter: blur(18px);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    .fake-qr {
+      width: 250px;
+      height: 250px;
+      margin: auto;
+      background:
+        linear-gradient(90deg, #fff 10px, transparent 10px),
+        linear-gradient(#fff 10px, transparent 10px);
+      background-size: 32px 32px;
+      background-color: #111;
+      border: 18px solid white;
+      border-radius: 20px;
+      box-shadow: 0 0 35px rgba(255,255,255,0.18);
+    }
+
+    section {
+      padding: 70px 8%;
+    }
+
+    .section-title {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .muted {
+      color: #bbb;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 28px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.075);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 26px;
+      padding: 25px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+    }
+
+    label {
+      display: block;
+      margin: 16px 0 8px;
+      font-weight: 700;
+      color: #f3f3f3;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.4);
+      color: white;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .qr-box {
+      min-height: 330px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.35);
+      border-radius: 22px;
+      margin-bottom: 18px;
+      padding: 20px;
+    }
+
+    #qrcode {
+      padding: 18px;
+      background: white;
+      border-radius: 18px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .secondary {
+      background: rgba(255,255,255,0.12);
+      box-shadow: none;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 24px;
+      min-height: 160px;
+      transition: 0.25s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,50,50,0.6);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 10px;
+      color: #ff5b5b;
+    }
+
+    .history-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .history-item {
+      background: rgba(0,0,0,0.35);
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      word-break: break-word;
+    }
+
+    .card-editor {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 25px;
+      align-items: start;
+    }
+
+    .canvas-wrap {
+      overflow: auto;
+      background: rgba(0,0,0,0.35);
+      border-radius: 22px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    #businessCardCanvas {
+      position: relative;
+      width: 700px;
+      min-height: 400px;
+      background: #111;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px dashed rgba(255,255,255,0.3);
+    }
+
+    #cardImage {
+      width: 100%;
+      display: none;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    #cardPlaceholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      text-align: center;
+      padding: 30px;
+    }
+
+    #draggableQR {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      width: 130px;
+      height: 130px;
+      background: white;
+      border-radius: 10px;
+      padding: 8px;
+      display: none;
+      cursor: grab;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    #draggableQR canvas,
+    #draggableQR img {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px;
+      color: #aaa;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 900px) {
+      .hero, .app-grid, .card-editor {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        display: none;
+      }
+
+      #businessCardCanvas {
+        width: 100%;
+        min-height: 260px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">Lucente <span>QR</span></div>
+    <nav>
+      <a href="#studio">QR Studio</a>
+      <a href="#business-card">Business Card</a>
+      <a href="#saved">Saved</a>
+      <a href="#features">Features</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Create QR codes that feel <span>premium.</span></h1>
+        <p>
+          Lucente QR is a modern QR creation studio for links, Wi-Fi, emails,
+          phone numbers, business cards and branded designs.
+        </p>
+        <button class="btn" onclick="document.getElementById('studio').scrollIntoView({behavior:'smooth'})">
+          Start Creating
+        </button>
+      </div>
+
+      <div class="hero-card">
+        <div class="fake-qr"></div>
+      </div>
+    </section>
+
+    <section id="studio">
+      <h2 class="section-title">QR Studio</h2>
+      <p class="muted">Generate, customise, download and save QR codes.</p>
+
+      <div class="app-grid">
+        <div class="panel">
+          <label>QR Type</label>
+          <select id="qrType" onchange="updatePlaceholder()">
+            <option value="url">Website URL</option>
+            <option value="text">Plain Text</option>
+            <option value="email">Email</option>
+            <option value="phone">Phone Number</option>
+            <option value="wifi">Wi-Fi</option>
+            <option value="vcard">Business Contact Card</option>
+          </select>
+
+          <label>QR Content</label>
+          <textarea id="qrInput" placeholder="Enter your website link..."></textarea>
+
+          <div class="row">
+            <div>
+              <label>QR Colour</label>
+              <input type="color" id="qrColor" value="#000000">
+            </div>
+            <div>
+              <label>Background</label>
+              <input type="color" id="qrBg" value="#ffffff">
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>Size</label>
+              <select id="qrSize">
+                <option value="200">Small</option>
+                <option value="260" selected>Medium</option>
+                <option value="340">Large</option>
+              </select>
+            </div>
+            <div>
+              <label>Label Name</label>
+              <input id="qrName" placeholder="e.g. My Website QR">
+            </div>
+          </div>
+
+          <br>
+          <div class="actions">
+            <button class="btn" onclick="generateQR()">Generate QR</button>
+            <button class="btn secondary" onclick="saveQR()">Save</button>
+            <button class="btn secondary" onclick="clearQR()">Clear</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="qr-box">
+            <div id="qrcode"></div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" onclick="downloadQR()">Download PNG</button>
+            <button class="btn secondary" onclick="copyQRText()">Copy Data</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="business-card">
+      <h2 class="section-title">Business Card QR Designer</h2>
+      <p class="muted">
+        Upload your current business card, generate a QR code, drag it onto the card,
+        resize it, then download the updated version.
+      </p>
+
+      <div class="card-editor">
+        <div class="panel">
+          <label>Upload Business Card</label>
+          <input type="file" id="cardUpload" accept="image/*" onchange="uploadBusinessCard(event)">
+
+          <label>QR Content for Card</label>
+          <textarea id="cardQRInput" placeholder="Enter your website, LinkedIn, email or contact link..."></textarea>
+
+          <label>QR Size on Card</label>
+          <input type="range" min="70" max="240" value="130" id="cardQRSize" oninput="resizeCardQR()">
+
+          <br><br>
+          <div class="actions">
+            <button class="btn" onclick="generateCardQR()">Add QR to Card</button>
+            <button class="btn secondary" onclick="downloadBusinessCard()">Download Card</button>
+          </div>
+        </div>
+
+        <div class="canvas-wrap">
+          <div id="businessCardCanvas">
+            <div id="cardPlaceholder">Upload your business card image to start editing.</div>
+            <img id="cardImage" alt="Business Card">
+            <div id="draggableQR"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="saved">
+      <h2 class="section-title">Saved QR Codes</h2>
+      <p class="muted">Your saved QR codes are stored in this browser.</p>
+
+      <div class="actions" style="margin-bottom:18px;">
+        <button class="btn secondary" onclick="loadHistory()">Refresh Saved</button>
+        <button class="btn secondary" onclick="clearHistory()">Clear Saved</button>
+      </div>
+
+      <div id="historyList" class="history-list"></div>
+    </section>
+
+    <section id="features">
+      <h2 class="section-title">Why Lucente QR?</h2>
+      <p class="muted">A QR platform made to feel modern, fast and business-ready.</p>
+
+      <div class="cards">
+        <div class="feature-card">
+          <h3>Multiple QR Types</h3>
+          <p>Create QR codes for websites, emails, phone numbers, Wi-Fi and contact cards.</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Business Card Editor</h3>
+          <p>Upload your existing card and place a QR code directly onto it.</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Custom Style</h3>
+          <p>Change QR colours, backgrounds and size before downloading.</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Saved History</h3>
+          <p>Keep previous QR codes saved locally in your browser.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Lucente QR. Built for fast, premium QR creation.
+  </footer>
+
+  <script>
+    let latestQRText = "";
+
+    function updatePlaceholder() {
+      const type = document.getElementById("qrType").value;
+      const input = document.getElementById("qrInput");
+
+      const placeholders = {
+        url: "https://yourwebsite.com",
+        text: "Enter any text...",
+        email: "example@email.com",
+        phone: "+61400000000",
+        wifi: "Network Name, Password, WPA",
+        vcard: "Name, Phone, Email, Website"
+      };
+
+      input.placeholder = placeholders[type];
+    }
+
+    function formatQRData(type, value) {
+      value = value.trim();
+
+      if (type === "email") return `mailto:${value}`;
+      if (type === "phone") return `tel:${value}`;
+
+      if (type === "wifi") {
+        const parts = value.split(",");
+        const ssid = parts[0]?.trim() || "";
+        const password = parts[1]?.trim() || "";
+        const security = parts[2]?.trim() || "WPA";
+        return `WIFI:T:${security};S:${ssid};P:${password};;`;
+      }
+
+      if (type === "vcard") {
+        const parts = value.split(",");
+        const name = parts[0]?.trim() || "";
+        const phone = parts[1]?.trim() || "";
+        const email = parts[2]?.trim() || "";
+        const website = parts[3]?.trim() || "";
+
+        return `BEGIN:VCARD
+VERSION:3.0
+FN:${name}
+TEL:${phone}
+EMAIL:${email}
+URL:${website}
+END:VCARD`;
+      }
+
+      return value;
+    }
+
+    function generateQR() {
+      const type = document.getElementById("qrType").value;
+      const rawValue = document.getElementById("qrInput").value;
+      const color = document.getElementById("qrColor").value;
+      const bg = document.getElementById("qrBg").value;
+      const size = Number(document.getElementById("qrSize").value);
+      const qrcode = document.getElementById("qrcode");
+
+      if (!rawValue.trim()) {
+        alert("Please enter QR content first.");
+        return;
+      }
+
+      latestQRText = formatQRData(type, rawValue);
+
+      qrcode.innerHTML = "";
+
+      new QRCode(qrcode, {
+        text: latestQRText,
+        width: size,
+        height: size,
+        colorDark: color,
+        colorLight: bg,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    function clearQR() {
+      document.getElementById("qrcode").innerHTML = "";
+      document.getElementById("qrInput").value = "";
+      document.getElementById("qrName").value = "";
+      latestQRText = "";
+    }
+
+    function downloadQR() {
+      const qrBox = document.getElementById("qrcode");
+      const img = qrBox.querySelector("img");
+      const canvas = qrBox.querySelector("canvas");
+
+      if (!img && !canvas) {
+        alert("Generate a QR code first.");
+        return;
+      }
+
+      let dataURL;
+
+      if (img) {
+        dataURL = img.src;
+      } else {
+        dataURL = canvas.toDataURL("image/png");
+      }
+
+      const link = document.createElement("a");
+      link.href = dataURL;
+      link.download = "lucente-qr.png";
+      link.click();
+    }
+
+    function copyQRText() {
+      if (!latestQRText) {
+        alert("Generate a QR code first.");
+        return;
+      }
+
+      navigator.clipboard.writeText(latestQRText);
+      alert("QR data copied.");
+    }
+
+    function saveQR() {
+      if (!latestQRText) {
+        alert("Generate a QR code first.");
+        return;
+      }
+
+      const name = document.getElementById("qrName").value || "Untitled QR";
+      const saved = JSON.parse(localStorage.getItem("lucenteQRHistory")) || [];
+
+      saved.unshift({
+        name,
+        data: latestQRText,
+        date: new Date().toLocaleString()
+      });
+
+      localStorage.setItem("lucenteQRHistory", JSON.stringify(saved));
+      loadHistory();
+      alert("QR saved.");
+    }
+
+    function loadHistory() {
+      const list = document.getElementById("historyList");
+      const saved = JSON.parse(localStorage.getItem("lucenteQRHistory")) || [];
+
+      if (saved.length === 0) {
+        list.innerHTML = `<p class="muted">No saved QR codes yet.</p>`;
+        return;
+      }
+
+      list.innerHTML = saved.map(item => `
+        <div class="history-item">
+          <strong>${item.name}</strong>
+          <p style="color:#aaa; font-size:13px; margin:8px 0;">${item.date}</p>
+          <p>${item.data}</p>
+        </div>
+      `).join("");
+    }
+
+    function clearHistory() {
+      localStorage.removeItem("lucenteQRHistory");
+      loadHistory();
+    }
+
+    function uploadBusinessCard(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const img = document.getElementById("cardImage");
+        img.src = e.target.result;
+        img.style.display = "block";
+        document.getElementById("cardPlaceholder").style.display = "none";
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    function generateCardQR() {
+      const value = document.getElementById("cardQRInput").value.trim();
+      const qr = document.getElementById("draggableQR");
+
+      if (!value) {
+        alert("Enter QR content for the business card.");
+        return;
+      }
+
+      qr.innerHTML = "";
+      qr.style.display = "block";
+
+      new QRCode(qr, {
+        text: value,
+        width: 130,
+        height: 130,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      resizeCardQR();
+    }
+
+    function resizeCardQR() {
+      const size = document.getElementById("cardQRSize").value;
+      const qr = document.getElementById("draggableQR");
+      qr.style.width = size + "px";
+      qr.style.height = size + "px";
+    }
+
+    async function downloadBusinessCard() {
+      const card = document.getElementById("businessCardCanvas");
+      const img = document.getElementById("cardImage");
+
+      if (!img.src) {
+        alert("Upload your business card first.");
+        return;
+      }
+
+      const canvas = await html2canvas(card, {
+        backgroundColor: null,
+        useCORS: true,
+        scale: 2
+      });
+
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "lucente-business-card.png";
+      link.click();
+    }
+
+    const draggableQR = document.getElementById("draggableQR");
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    draggableQR.addEventListener("mousedown", startDrag);
+    document.addEventListener("mousemove", drag);
+    document.addEventListener("mouseup", stopDrag);
+
+    draggableQR.addEventListener("touchstart", startDragTouch);
+    document.addEventListener("touchmove", dragTouch);
+    document.addEventListener("touchend", stopDrag);
+
+    function startDrag(e) {
+      isDragging = true;
+      offsetX = e.clientX - draggableQR.offsetLeft;
+      offsetY = e.clientY - draggableQR.offsetTop;
+      draggableQR.style.cursor = "grabbing";
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+
+      const parent = document.getElementById("businessCardCanvas");
+      let x = e.clientX - offsetX;
+      let y = e.clientY - offsetY;
+
+      x = Math.max(0, Math.min(x, parent.clientWidth - draggableQR.clientWidth));
+      y = Math.max(0, Math.min(y, parent.clientHeight - draggableQR.clientHeight));
+
+      draggableQR.style.left = x + "px";
+      draggableQR.style.top = y + "px";
+    }
+
+    function startDragTouch(e) {
+      const touch = e.touches[0];
+      isDragging = true;
+      offsetX = touch.clientX - draggableQR.offsetLeft;
+      offsetY = touch.clientY - draggableQR.offsetTop;
+    }
+
+    function dragTouch(e) {
+      if (!isDragging) return;
+
+      const touch = e.touches[0];
+      const parent = document.getElementById("businessCardCanvas";
+
+      let x = touch.clientX - offsetX;
+      let y = touch.clientY - offsetY;
+
+      x = Math.max(0, Math.min(x, parent.clientWidth - draggableQR.clientWidth));
+      y = Math.max(0, Math.min(y, parent.clientHeight - draggableQR.clientHeight));
+
+      draggableQR.style.left = x + "px";
+      draggableQR.style.top = y + "px";
+    }
+
+    function stopDrag() {
+      isDragging = false;
+      draggableQR.style.cursor = "grab";
+    }
+
+    loadHistory();
+  </script>
+</body>
+</html>
