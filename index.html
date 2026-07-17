@@ -7,17 +7,17 @@
   <meta name="theme-color" content="#050505" />
   <meta name="robots" content="index,follow" />
   <meta name="google-site-verification" content="HNCdgm31ssvA4WBS6L759a7R0ITaOOqglFpAqv-i3Z0" />
-  <title>Lucente QR | QR Code Generator by Lucente Corporate</title>
-  <meta name="description" content="Lucente QR is a live QR-code creation tool developed under Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman. Generate and customise QR codes for practical personal and business uses." />
+  <title>Lucente QR | Sahaan Kesavan &amp; Farris Zaman</title>
+  <meta name="description" content="Lucente QR is a live QR-code generator from Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman, for links, Wi-Fi, contacts and business cards." />
   <link rel="canonical" href="https://lucente-qr.vercel.app/" />
-  <meta property="og:title" content="Lucente QR | QR Code Generator by Lucente Corporate" />
-  <meta property="og:description" content="Lucente QR is a live QR-code creation tool developed under Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman. Generate and customise QR codes for practical personal and business uses." />
+  <meta property="og:title" content="Lucente QR | Sahaan Kesavan &amp; Farris Zaman" />
+  <meta property="og:description" content="Lucente QR is a live QR-code generator from Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman, for links, Wi-Fi, contacts and business cards." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://lucente-qr.vercel.app/" />
   <meta property="og:site_name" content="Lucente QR" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lucente QR | QR Code Generator by Lucente Corporate" />
-  <meta name="twitter:description" content="Lucente QR is a live QR-code creation tool developed under Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman. Generate and customise QR codes for practical personal and business uses." />
+  <meta name="twitter:title" content="Lucente QR | Sahaan Kesavan &amp; Farris Zaman" />
+  <meta name="twitter:description" content="Lucente QR is a live QR-code generator from Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman, for links, Wi-Fi, contacts and business cards." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="alternate" type="application/rss+xml" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -360,6 +360,73 @@
       box-shadow: 0 0 0 3px rgba(65, 255, 120, 0.2);
     }
 
+    .byline {
+      margin-bottom: 24px;
+      color: #d7d7d7;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .byline a {
+      color: #ff8b8b;
+      text-decoration: none;
+    }
+
+    .byline a:hover {
+      text-decoration: underline;
+    }
+
+    .creator-section {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 28px;
+      margin-top: 24px;
+    }
+
+    .creator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .creator-card {
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 22px;
+    }
+
+    .creator-card h3 {
+      color: #ff8b8b;
+      margin-bottom: 8px;
+    }
+
+    .creator-card .meta {
+      margin-bottom: 10px;
+      color: #f3c2c2;
+      font-weight: 700;
+    }
+
+    .faq-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .faq-item {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .faq-item h3 {
+      color: #ff8b8b;
+      margin-bottom: 8px;
+    }
+
     a:focus-visible,
     button:focus-visible,
     input:focus-visible,
@@ -392,6 +459,7 @@
   <header>
     <a class="logo" href="/" aria-label="Lucente QR home">Lucente <span>QR</span></a>
     <nav aria-label="Primary navigation">
+      <a href="/creators/">Creators</a>
       <a href="/about/">About</a>
       <a href="#studio">QR Studio</a>
       <a href="#business-card">Business Card</a>
@@ -403,11 +471,11 @@
   <main>
   <section class="hero">
     <div>
-      <h1>Create QR codes that feel <span>premium.</span></h1>
+      <h1>Create QR codes that feel <span>clear and practical.</span></h1>
       <p>
-        Lucente QR is a live digital QR-code creation tool developed under Lucente Corporate.
-        It helps users generate and customise QR codes for practical personal and business uses.
+        Lucente QR is a live QR-code generator from Lucente Corporate for links, Wi-Fi details, contact information, business cards and other practical personal or business uses.
       </p>
+      <p class="byline">A Lucente Corporate project founded by <a href="https://lucente-corporate-portfolio.vercel.app/founders/sahaan-kesavan/">Sahaan Kesavan</a> and <a href="https://lucente-corporate-portfolio.vercel.app/founders/farris-zaman/">Farris Zaman</a>.</p>
       <button class="btn" onclick="scrollToStudio()">Start Creating</button>
     </div>
 
@@ -418,7 +486,7 @@
 
   <section id="studio">
     <h2 class="section-title">QR Studio</h2>
-    <p class="muted">Generate, customise, save and download premium QR codes.</p>
+    <p class="muted">Generate, customise, save and download QR codes for practical personal or business uses.</p>
 
     <div class="app-grid">
       <div class="panel">
@@ -481,6 +549,47 @@
     </div>
   </section>
 
+  <section id="founders" class="creator-section" aria-labelledby="founders-heading">
+    <h2 id="founders-heading" class="section-title">Who is behind Lucente QR?</h2>
+    <p class="muted">Lucente QR is a project operated under Lucente Corporate, the independent technology brand founded by Sahaan Kesavan and Farris Zaman.</p>
+
+    <div class="creator-grid">
+      <article class="creator-card">
+        <h3>Sahaan Kesavan</h3>
+        <p class="meta">Co-Founder &amp; Product Development Lead</p>
+        <p>Sahaan Kesavan leads the product design, application development, technical delivery and feature planning behind Lucente projects, including Lucente QR.</p>
+        <p class="meta">Location: Sydney, Australia</p>
+        <a class="btn secondary" href="https://lucente-corporate-portfolio.vercel.app/founders/sahaan-kesavan/">View Sahaan’s Profile ↗</a>
+      </article>
+
+      <article class="creator-card">
+        <h3>Farris Zaman</h3>
+        <p class="meta">Co-Founder &amp; Strategy and Marketing Lead</p>
+        <p>Farris Zaman leads marketing, strategic planning, brand positioning and creative direction for Lucente Corporate and contributes to Lucente QR’s product direction.</p>
+        <p class="meta">Location: Newcastle, Australia</p>
+        <a class="btn secondary" href="https://lucente-corporate-portfolio.vercel.app/founders/farris-zaman/">View Farris’s Profile ↗</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="faq" class="creator-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading" class="section-title">Frequently asked questions</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h3>Who created Lucente QR?</h3>
+        <p>Lucente QR is a project by Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman. Sahaan leads product development and technical delivery, while Farris leads strategic planning and marketing.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What is Lucente Corporate?</h3>
+        <p>Lucente Corporate is an independent technology brand founded in 2025 by Sahaan Kesavan and Farris Zaman. It creates practical applications, digital products and technology services.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is Lucente QR live?</h3>
+        <p>Yes. Lucente QR is live and available at <a href="https://lucente-qr.vercel.app/">https://lucente-qr.vercel.app/</a>.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="business-card">
     <h2 class="section-title">Business Card QR Designer</h2>
     <p class="muted">
@@ -531,15 +640,16 @@
   <section id="about" class="about-section" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About Lucente QR</h2>
     <p>
-      Lucente QR is a live digital QR-code creation tool developed under <a href="https://lucente-corporate-portfolio.vercel.app/">Lucente Corporate</a>.
-      The application helps users generate and customise QR codes for practical personal and business uses.
+      Lucente QR is a live QR-code creation tool developed under <a href="https://lucente-corporate-portfolio.vercel.app/">Lucente Corporate</a>. It helps users create links, Wi-Fi details, contact information and business-card QR codes for practical personal and business uses.
     </p>
-    <p class="about-section">
-      Lucente QR is part of Lucente Corporate, the independent technology brand founded by
+    <p>
+      Lucente QR is a project operated under Lucente Corporate, the independent technology brand founded by
       <a href="https://lucente-corporate-portfolio.vercel.app/founders/sahaan-kesavan/">Sahaan Kesavan</a>
       and
       <a href="https://lucente-corporate-portfolio.vercel.app/founders/farris-zaman/">Farris Zaman</a>.
+      Sahaan leads product development and technical delivery, while Farris leads strategy, planning and marketing.
     </p>
+    <p><a href="/creators/">Meet the creators behind Lucente QR</a>.</p>
   </section>
 
   <section id="features">
@@ -573,7 +683,7 @@
 
   <footer>
     <p class="footer-attribution">
-      Lucente QR is a project by <a href="https://lucente-corporate-portfolio.vercel.app/">Lucente Corporate</a>, founded by
+      Lucente QR is a live project by <a href="https://lucente-corporate-portfolio.vercel.app/">Lucente Corporate</a>, founded by
       <a href="https://lucente-corporate-portfolio.vercel.app/founders/sahaan-kesavan/">Sahaan Kesavan</a>
       and
       <a href="https://lucente-corporate-portfolio.vercel.app/founders/farris-zaman/">Farris Zaman</a>.
@@ -584,27 +694,48 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": ["WebApplication", "SoftwareApplication"],
-    "name": "Lucente QR",
-    "url": "https://lucente-qr.vercel.app/",
-    "description": "Lucente QR is a live QR-code creation tool developed under Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman. Generate and customise QR codes for practical personal and business uses.",
-    "applicationCategory": "MultimediaApplication",
-    "operatingSystem": "Web",
-    "status": "Live",
-    "creator": {
-      "@type": "Organization",
-      "name": "Lucente Corporate",
-      "url": "https://lucente-corporate-portfolio.vercel.app/",
-      "founders": [
-        {"@type": "Person", "name": "Sahaan Kesavan"},
-        {"@type": "Person", "name": "Farris Zaman"}
-      ]
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Lucente Corporate",
-      "url": "https://lucente-corporate-portfolio.vercel.app/"
-    }
+    "@graph": [
+      {
+        "@id": "https://lucente-qr.vercel.app/#application",
+        "@type": ["WebApplication", "SoftwareApplication"],
+        "name": "Lucente QR",
+        "url": "https://lucente-qr.vercel.app/",
+        "description": "Lucente QR is a live QR-code generator from Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman, for links, Wi-Fi, contacts and business cards.",
+        "applicationCategory": "UtilitiesApplication",
+        "isAccessibleForFree": true,
+        "operatingSystem": "Web",
+        "status": "Live",
+        "creator": {"@id": "https://lucente-corporate-portfolio.vercel.app/#organization"},
+        "publisher": {"@id": "https://lucente-corporate-portfolio.vercel.app/#organization"}
+      },
+      {
+        "@id": "https://lucente-corporate-portfolio.vercel.app/#organization",
+        "@type": "Organization",
+        "name": "Lucente Corporate",
+        "url": "https://lucente-corporate-portfolio.vercel.app/",
+        "foundingDate": "2025",
+        "founder": [
+          {"@id": "https://lucente-corporate-portfolio.vercel.app/founders/sahaan-kesavan/#person"},
+          {"@id": "https://lucente-corporate-portfolio.vercel.app/founders/farris-zaman/#person"}
+        ]
+      },
+      {
+        "@id": "https://lucente-corporate-portfolio.vercel.app/founders/sahaan-kesavan/#person",
+        "@type": "Person",
+        "name": "Sahaan Kesavan",
+        "url": "https://lucente-corporate-portfolio.vercel.app/founders/sahaan-kesavan/",
+        "jobTitle": "Co-Founder & Product Development Lead",
+        "worksFor": {"@id": "https://lucente-corporate-portfolio.vercel.app/#organization"}
+      },
+      {
+        "@id": "https://lucente-corporate-portfolio.vercel.app/founders/farris-zaman/#person",
+        "@type": "Person",
+        "name": "Farris Zaman",
+        "url": "https://lucente-corporate-portfolio.vercel.app/founders/farris-zaman/",
+        "jobTitle": "Co-Founder & Strategy and Marketing Lead",
+        "worksFor": {"@id": "https://lucente-corporate-portfolio.vercel.app/#organization"}
+      }
+    ]
   }
   </script>
 
