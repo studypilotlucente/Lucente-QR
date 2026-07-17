@@ -2,16 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="theme-color" content="#050505" />
+  <meta name="robots" content="index,follow" />
   <meta name="google-site-verification" content="HNCdgm31ssvA4WBS6L759a7R0ITaOOqglFpAqv-i3Z0" />
-<title>Lucente QR – Premium QR Code Generator & Business Card QR Tool</title>
-
-<meta name="description" content="Create premium QR codes with Lucente QR. Generate custom QR codes, design business cards with QR, and download instantly." />
-
-<meta name="keywords" content="QR code generator, business card QR, custom QR code, Lucente QR" />
-  <title>Lucente QR</title>
-
+  <title>Lucente QR | QR Code Generator by Lucente Corporate</title>
+  <meta name="description" content="Lucente QR is a live QR-code creation tool developed under Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman. Generate and customise QR codes for practical personal and business uses." />
+  <link rel="canonical" href="https://lucente-qr.vercel.app/" />
+  <meta property="og:title" content="Lucente QR | QR Code Generator by Lucente Corporate" />
+  <meta property="og:description" content="Lucente QR is a live QR-code creation tool developed under Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman. Generate and customise QR codes for practical personal and business uses." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lucente-qr.vercel.app/" />
+  <meta property="og:site_name" content="Lucente QR" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lucente QR | QR Code Generator by Lucente Corporate" />
+  <meta name="twitter:description" content="Lucente QR is a live QR-code creation tool developed under Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman. Generate and customise QR codes for practical personal and business uses." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate" type="application/rss+xml" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
@@ -302,6 +310,65 @@
       border-top: 1px solid rgba(255,255,255,0.1);
     }
 
+    .about-section,
+    .footer-attribution {
+      margin-top: 18px;
+    }
+
+    .about-section {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 28px;
+    }
+
+    .about-section p,
+    .about-section li {
+      color: #d9d9d9;
+      line-height: 1.7;
+    }
+
+    .about-section a,
+    .footer-attribution a {
+      color: #ff8b8b;
+      text-decoration: none;
+    }
+
+    .about-section a:hover,
+    .footer-attribution a:hover {
+      text-decoration: underline;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(82, 255, 142, 0.14);
+      color: #c8ffd0;
+      border: 1px solid rgba(82, 255, 142, 0.25);
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #41ff78;
+      box-shadow: 0 0 0 3px rgba(65, 255, 120, 0.2);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid #ff8b8b;
+      outline-offset: 3px;
+    }
+
     @media (max-width: 900px) {
       nav {
         display: none;
@@ -323,8 +390,9 @@
 
 <body>
   <header>
-    <div class="logo">Lucente <span>QR</span></div>
-    <nav>
+    <a class="logo" href="/" aria-label="Lucente QR home">Lucente <span>QR</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="/about/">About</a>
       <a href="#studio">QR Studio</a>
       <a href="#business-card">Business Card</a>
       <a href="#saved">Saved</a>
@@ -332,12 +400,13 @@
     </nav>
   </header>
 
+  <main>
   <section class="hero">
     <div>
       <h1>Create QR codes that feel <span>premium.</span></h1>
       <p>
-        Lucente QR is a modern QR creation studio for websites, Wi-Fi,
-        contact cards, business cards and branded QR designs.
+        Lucente QR is a live digital QR-code creation tool developed under Lucente Corporate.
+        It helps users generate and customise QR codes for practical personal and business uses.
       </p>
       <button class="btn" onclick="scrollToStudio()">Start Creating</button>
     </div>
@@ -459,6 +528,20 @@
     <div id="historyList" class="history-list"></div>
   </section>
 
+  <section id="about" class="about-section" aria-labelledby="about-heading">
+    <h2 id="about-heading" class="section-title">About Lucente QR</h2>
+    <p>
+      Lucente QR is a live digital QR-code creation tool developed under <a href="https://lucente-corporate-portfolio.vercel.app/">Lucente Corporate</a>.
+      The application helps users generate and customise QR codes for practical personal and business uses.
+    </p>
+    <p class="about-section">
+      Lucente QR is part of Lucente Corporate, the independent technology brand founded by
+      <a href="https://lucente-corporate-portfolio.vercel.app/founders/sahaan-kesavan/">Sahaan Kesavan</a>
+      and
+      <a href="https://lucente-corporate-portfolio.vercel.app/founders/farris-zaman/">Farris Zaman</a>.
+    </p>
+  </section>
+
   <section id="features">
     <h2 class="section-title">Features</h2>
     <p class="muted">Lucente QR is more than a basic QR generator.</p>
@@ -486,9 +569,44 @@
     </div>
   </section>
 
+  </main>
+
   <footer>
-    © 2026 Lucente QR. Built for premium QR creation.
+    <p class="footer-attribution">
+      Lucente QR is a project by <a href="https://lucente-corporate-portfolio.vercel.app/">Lucente Corporate</a>, founded by
+      <a href="https://lucente-corporate-portfolio.vercel.app/founders/sahaan-kesavan/">Sahaan Kesavan</a>
+      and
+      <a href="https://lucente-corporate-portfolio.vercel.app/founders/farris-zaman/">Farris Zaman</a>.
+    </p>
+    <p class="status-pill" aria-label="Project status: Live"><span class="status-dot" aria-hidden="true"></span> Status: Live</p>
   </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["WebApplication", "SoftwareApplication"],
+    "name": "Lucente QR",
+    "url": "https://lucente-qr.vercel.app/",
+    "description": "Lucente QR is a live QR-code creation tool developed under Lucente Corporate, founded by Sahaan Kesavan and Farris Zaman. Generate and customise QR codes for practical personal and business uses.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "status": "Live",
+    "creator": {
+      "@type": "Organization",
+      "name": "Lucente Corporate",
+      "url": "https://lucente-corporate-portfolio.vercel.app/",
+      "founders": [
+        {"@type": "Person", "name": "Sahaan Kesavan"},
+        {"@type": "Person", "name": "Farris Zaman"}
+      ]
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Lucente Corporate",
+      "url": "https://lucente-corporate-portfolio.vercel.app/"
+    }
+  }
+  </script>
 
   <script>
     let latestQRText = "";
